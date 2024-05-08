@@ -59,7 +59,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake .. -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_TOOLCHAIN_FILE=${{github.workspace}}/android-ndk/build/cmake/android.toolchain.cmake -DANDROID_NDK=${{github.workspace}}/android-ndk -DANDROID_ABI="armeabi-v7a with NEON" -DANDROID_NATIVE_API_LEVEL="android-8" -DANDROID_STL="c++_shared" && cmake --build .
+          cmake .. -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_TOOLCHAIN_FILE=${{github.workspace}}/android-ndk/build/cmake/android.toolchain.cmake -DANDROID_NDK=${{github.workspace}}/android-ndk -DANDROID_ABI="armeabi-v7a with NEON" -DANDROID_NATIVE_API_LEVEL="android-8" -DANDROID_STL="c++_static" && cmake --build .
 
       - name: Move program and binary
         run: |
