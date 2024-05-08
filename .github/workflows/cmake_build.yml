@@ -28,16 +28,16 @@ jobs:
           submodules: "recursive"
 
       - name: Install conan
-        run: pip install "conan>2.0"
+        run: sudo pip install "conan>2.0"
 
       - name: Install Unar
-        run: apt install unar
+        run: sudo apt install unar
 
       - name: Get & Extract Android NDK
         run: |
-          mkdir android-ndk
+          sudo mkdir android-ndk
           wget https://dl.google.com/android/repository/android-ndk-r26d-linux.zip
-          unzip android-ndk-*-linux.zip -d android-ndk
+          sudo unzip android-ndk-*-linux.zip -d android-ndk
           ls
           ls android-ndk
       
