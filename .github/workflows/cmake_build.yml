@@ -29,6 +29,14 @@ jobs:
 
       - name: Install conan
         run: pip install "conan>2.0"
+
+      - name: Install Unar
+        run: apt install unar
+
+      - name: Get & Extract Android NDK
+        run: |
+          wget https://dl.google.com/android/repository/android-ndk-r26d-linux.zip
+          unar -t android-ndk-*-linux.zip
       
       - name: Cache Conan packages
         uses: actions/cache@v3
@@ -45,19 +53,19 @@ jobs:
           key: ${{ runner.os }}-cmake
 
       - name: Configure CMake
-        run: cmake -B ${{github.workspace}}\build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DGTPROXY_BUILD_VERSION=${{github.run_number}}
+        run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DGTPROXY_BUILD_VERSION=${{github.run_number}}
 
       - name: Build
-        run: cmake --build ${{github.workspace}}\build --config ${{env.BUILD_TYPE}}
+        run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
       - name: Move program and binary
         run: |
-          mkdir ${{github.workspace}}\output
-          copy ${{github.workspace}}\build\src\${{env.BUILD_TYPE}}\*.exe ${{github.workspace}}\output
-          copy ${{github.workspace}}\build\conan\build\*.dll ${{github.workspace}}\output
+          mkdir ${{github.workspace}}/output
+          cp ${{github.workspace}}/build/src/${{env.BUILD_TYPE}}/* ${{github.workspace}}/output
+          cp ${{github.workspace}}/build/conan/build/* ${{github.workspace}}/output
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: gtproxy-${{github.sha}}
-          path: ${{github.workspace}}\output
+          path: ${{github.workspace}}/output
