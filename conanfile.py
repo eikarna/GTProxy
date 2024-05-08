@@ -14,6 +14,7 @@ class GTProxyRecipe(ConanFile):
         self.requires("nlohmann_json/[~3.11]")
         self.requires("pcg-cpp/cci.20220409")
         self.requires("spdlog/[~1.13]")
+        self.requires("android-ndk/r26d")
 
     def layout(self):
         cmake_layout(self)
