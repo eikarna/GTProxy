@@ -17,7 +17,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-2022
+    runs-on: ubuntu-latest
     env:
       BUILD_TYPE: ${{ inputs.buildType }}
 
@@ -38,6 +38,8 @@ jobs:
           mkdir android-ndk
           wget https://dl.google.com/android/repository/android-ndk-r26d-linux.zip
           unzip android-ndk-*-linux.zip -d android-ndk
+          ls
+          ls android-ndk
       
       - name: Cache Conan packages
         uses: actions/cache@v3
@@ -64,7 +66,9 @@ jobs:
         run: |
           mkdir ${{github.workspace}}/output
           cp ${{github.workspace}}/build/src/${{env.BUILD_TYPE}}/* ${{github.workspace}}/output
+          ls ${{github.workspace}}/build/src/${{env.BUILD_TYPE}}/
           cp ${{github.workspace}}/build/conan/build/* ${{github.workspace}}/output
+          ls ${{github.workspace}}/build/conan/build/
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
