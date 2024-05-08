@@ -35,9 +35,9 @@ jobs:
 
       - name: Get & Extract Android NDK
         run: |
-          sudo mkdir android-ndk
           wget -q https://dl.google.com/android/repository/android-ndk-r26d-linux.zip -O android-ndk.zip
-          sudo unzip android-ndk.zip -d android-ndk
+          sudo unzip android-ndk.zip
+          mv android-ndk-* android-ndk
           ls
           ls android-ndk
       
